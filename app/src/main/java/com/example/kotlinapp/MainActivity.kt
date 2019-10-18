@@ -11,13 +11,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        email_editview_register.setOnClickListener {
-
-            val email = email_editview_register.text.toString()
-
-            Log.d("MainActivity", "Email is:" + email)
-        }
-        email_editview_register.setOnClickListener {
+      use_phone_button_register.setOnClickListener {
             Log.d("MainActivity", "Try to show login Messages")
 
             //Launch the login activity
