@@ -26,5 +26,6 @@ class registerActivity: AppCompatActivity() {
             val intent = Intent(this, mapsActivity::class.java)
             startActivity(intent)
         }
+
     }
 }

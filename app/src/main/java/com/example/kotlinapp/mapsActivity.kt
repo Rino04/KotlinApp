@@ -5,10 +5,15 @@ import android.location.Location
 import android.os.Build
 import android.os.Bundle
 import android.os.Looper
+import android.view.MenuItem
 import android.widget.Toast
+import android.widget.Toolbar
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -18,8 +23,14 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.navigation.NavigationView
 
 class mapsActivity: AppCompatActivity(),OnMapReadyCallback {
+   //Notification code
+   private lateinit var mDrawerLayout: DrawerLayout
+
+
     private lateinit var mMap: GoogleMap
 
     private var latitude:Double=0.toDouble()
@@ -36,11 +47,58 @@ class mapsActivity: AppCompatActivity(),OnMapReadyCallback {
     companion object {
         private const val MY_PERMISSION_CODE: Int= 1000
     }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
+        //Notification
+
+        val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        val actionbar: ActionBar? = supportActionBar
+        actionbar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            // setHomeAsUpIndicator(R.mipmap.baseline_menu_white_18dp)
+        }
+
+        mDrawerLayout = findViewById(R.id.drawer_layout)
+
+        val navigationView: NavigationView = findViewById(R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener { menuItem ->
+            // set item as selected to persist highlight
+            menuItem.isChecked = true
+            // close drawer when item is tapped
+
+            // Handle navigation view item clicks here.
+            when (menuItem.itemId) {
+
+                R.id.nav_profile -> {
+                    Toast.makeText(this, "Profile", Toast.LENGTH_LONG).show()
+                }
+                R.id.nav_payment -> {
+                    Toast.makeText(this, "Payment", Toast.LENGTH_LONG).show()
+                }
+                R.id.nav_rate-> {
+                    Toast.makeText(this, "Rate", Toast.LENGTH_LONG).show()
+                }
+                R.id.nav_setting -> {
+                    Toast.makeText(this, "Setting", Toast.LENGTH_LONG).show()
+                }
+                R.id.nav_share -> {
+                    Toast.makeText(this, "Share", Toast.LENGTH_LONG).show()
+                }
+                R.id.nav_logout -> {
+                Toast.makeText(this, "Logout", Toast.LENGTH_LONG).show()
+            }
+            }
+            // Add code here to update the UI based on the item selected
+            // For example, swap UI fragments here
+
+            true
+        }
+        //appbar - toolbar button click
+
+        
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
 
         val mapFragment = supportFragmentManager
@@ -75,6 +133,7 @@ class mapsActivity: AppCompatActivity(),OnMapReadyCallback {
 
 
     }
+
 
     private fun buildLocationCallBack() {
         locationCallback = object : LocationCallback() {
